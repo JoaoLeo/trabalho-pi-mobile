@@ -31,7 +31,7 @@ export default function App() {
       component={AnaliseGastosStack}
       activeColor="#198754"
       options={{
-        tabBarLabel: 'Análise de gastos',
+        tabBarLabel: 'Análise',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="google-analytics" color={color} size={26} />
         ),
@@ -41,7 +41,7 @@ export default function App() {
       component={GastosPorEstadosStack}
       activeColor="#198754"
       options={{
-        tabBarLabel: 'Gastos por estado',
+        tabBarLabel: 'Gastos',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="cash-multiple" color={color} size={26} />
         ),
@@ -51,7 +51,7 @@ export default function App() {
       component={EmailStack}
       activeColor="#198754"
       options={{
-        tabBarLabel: 'Enviar email para deputados',
+        tabBarLabel: 'Email',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="email" color={color} size={26} />
         ),
