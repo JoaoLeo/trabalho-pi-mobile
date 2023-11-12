@@ -46,16 +46,6 @@ export default function App() {
           <MaterialCommunityIcons name="cash-multiple" color={color} size={26} />
         ),
       }}/>
-       <Tab.Screen 
-      name='email' 
-      component={EmailStack}
-      activeColor="#198754"
-      options={{
-        tabBarLabel: 'Email',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="email" color={color} size={26} />
-        ),
-      }}/>
     </Tab.Navigator>
 
       </NavigationContainer>

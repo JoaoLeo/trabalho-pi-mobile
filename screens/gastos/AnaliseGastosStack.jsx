@@ -6,7 +6,7 @@ const AnaliseGastosStack = () => {
   return (
     <>
         <Stack.Navigator>
-          <Stack.Screen name="Gastos por estado" component={AnaliseGastos} options={{ title: "Gastos por estado" }} />
+          <Stack.Screen name="Analise de gastos" component={AnaliseGastos} options={{ title: "Análise de gastos" }} />
         </Stack.Navigator>
     </>
   )

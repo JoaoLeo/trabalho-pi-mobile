@@ -3,10 +3,20 @@ import { Card, Text } from 'react-native-paper'
 import apiDeputados from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
+import email from 'react-native-email'
 
 const DeputadosDetalhes = ({ navigation, route }) => {
     const [deputados, setDeputados] = useState({})
     
+    handleEmail = (emailDeputado, assunto, msg) => {
+        const to = [emailDeputado] // string or array of email addresses
+        email(to, {
+            subject: assunto,
+            body: msg,
+            checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
+        }).catch(console.error)
+    }
+
     useEffect(()=> {
         const id = route.params.id
         apiDeputados.get(`/deputados/${id}`).then(resultado => {
@@ -22,7 +32,7 @@ const DeputadosDetalhes = ({ navigation, route }) => {
             <Card mode="outlined"
                 style={{ margin: 10 }}
             >
-                <Card.Cover source={{ uri: deputados.ultimoStatus.urlFoto }} style={{ height: 350 }} />
+               
                 <Card.Content>
                     <Text variant="titleLarge" style={{
                         marginBottom: 5,

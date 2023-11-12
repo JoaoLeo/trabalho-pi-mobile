@@ -15,7 +15,10 @@ const Deputados = ({ navigation }) => {
     <>
     <ScrollView>
       {deputados.map(item => (
-        <Card mode="outlined" style={{
+        <Card 
+        mode="outlined" 
+        key={item.id}
+        style={{
           margin: 8,
           borderRadius: 10,
           borderColor:"#198754"
