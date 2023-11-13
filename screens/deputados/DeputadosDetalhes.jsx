@@ -39,7 +39,7 @@ const DeputadosDetalhes = ({ navigation, route }) => {
                         fontSize: 13
                     }}>
                     </Text>
-                    <Text variant="bodyMedium" style={{ fontSize: 20 }}><strong>{deputados.nomeCivil}</strong></Text> <br></br>
+                    <Text variant="bodyMedium" style={{ fontSize: 20 }}>{deputados.nomeCivil}</Text> 
                 </Card.Content>
                 </Card>
                 </View>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import apiLocalidades from '../../services/apiLocalidades';
 import { Picker } from '@react-native-picker/picker';
 import { Formik } from 'formik';
-import { View, Alert } from 'react-native';
+import { View, Alert, ScrollView } from 'react-native';
 import { Divider, Button, Text, DataTable } from 'react-native-paper';
 import apiDeputados from '../../services/api';
 
@@ -65,7 +65,8 @@ const AnaliseGastos = () => {
 
     if((ano1 == anoAtual || ano2 == anoAtual) && (mes1 >= mesAtual + 1|| mes2 >= mesAtual + 1)){
       setError(true)
-      setMsgErro("Erro")
+      setMsgErro("Data inválida")
+      setData(false)
       return;
     }
     apiDeputados.get("/deputados?&itens=5&siglaUf="+ uf).then(async res =>{  
@@ -78,8 +79,12 @@ const AnaliseGastos = () => {
   return (
     <>
 
-      <View>
+   <View style={{margin: 10}}>
+   <ScrollView> 
+
+   <Text variant="titleMedium"> Selecione abaixo um estado e duas datas para analisar os gastos totais desse estado nas datas inseridas e a diferença entre eles</Text>
   <Picker
+   selectedValue={mes1}
   onValueChange={(itemValue) => setMes1(itemValue)}>
   
   <Picker.Item label="Selecione o mês 1" value="" />
@@ -90,6 +95,7 @@ const AnaliseGastos = () => {
     </Picker>
     <Divider />
     <Picker
+    selectedValue={ano1}
     onValueChange={(itemValue) => setAno1(itemValue)}>
   
   <Picker.Item label="Selecione o ano 1" value="" />
@@ -100,6 +106,7 @@ const AnaliseGastos = () => {
     </Picker>
 
     <Picker
+    selectedValue={mes2}
   onValueChange={(itemValue) => setMes2(itemValue)}>
   
   <Picker.Item label="Selecione o mês 2" value="" />
@@ -110,6 +117,7 @@ const AnaliseGastos = () => {
     </Picker>
     <Divider />
     <Picker
+    selectedValue={ano2}
     onValueChange={(itemValue) => setAno2(itemValue)}>
   
   <Picker.Item label="Selecione o ano 2" value="" />
@@ -120,6 +128,7 @@ const AnaliseGastos = () => {
     </Picker>
 <Divider/>
 <Picker
+ selectedValue={uf}
   onValueChange={(itemValue) => setUf(itemValue)}>
   
   <Picker.Item label="Selecione o estado" value="" />
@@ -128,12 +137,12 @@ const AnaliseGastos = () => {
     <Picker.Item label={uf.sigla} key={uf.id} value={uf.sigla} />
       ))}
     </Picker>
-    <Button  mode="contained" onPress={criarAnaliseDeDados} > Enviar </Button>
+    <Button buttonColor="#198754"  mode="contained" onPress={criarAnaliseDeDados} > Enviar </Button>
 
 
 
    { error &&
-    <Text> { msgErro}</Text>}
+    <Text variant="titleMedium" style={{color: 'red'}}> { msgErro}</Text>}
 
     { data && 
 
@@ -174,6 +183,7 @@ const AnaliseGastos = () => {
         </DataTable.Row>
     </DataTable>
     }
+    </ScrollView>
       </View>
 
     </>
