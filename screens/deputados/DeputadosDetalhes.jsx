@@ -6,7 +6,7 @@ import { ScrollView, View } from 'react-native';
 import email from 'react-native-email'
 
 const DeputadosDetalhes = ({ navigation, route }) => {
-    const [deputados, setDeputados] = useState([])
+    const [deputados, setDeputados] = useState({})
 
     handleEmail = (emailDeputado, assunto, msg) => {
         const to = [emailDeputado] // string or array of email addresses
@@ -29,16 +29,14 @@ const DeputadosDetalhes = ({ navigation, route }) => {
         <>
             <ScrollView>
                 <View>
-                    {deputados.map(item => (
                         <Card mode="outlined" style={{
                             margin: 8,
                             borderRadius: 10,
                         }}>
                             <Card.Content>
-                                <Text variant="titleLarge">{item.nomeCivil}</Text>
+                                <Text variant="titleLarge">Miguel</Text>
                             </Card.Content>
                         </Card>
-                    ))}
                 </View>
             </ScrollView>
         </>
