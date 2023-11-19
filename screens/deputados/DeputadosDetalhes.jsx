@@ -6,8 +6,8 @@ import { ScrollView, View } from 'react-native';
 import email from 'react-native-email'
 
 const DeputadosDetalhes = ({ navigation, route }) => {
-    const [deputados, setDeputados] = useState({})
-    
+    const [deputados, setDeputados] = useState([])
+
     handleEmail = (emailDeputado, assunto, msg) => {
         const to = [emailDeputado] // string or array of email addresses
         email(to, {
@@ -17,33 +17,30 @@ const DeputadosDetalhes = ({ navigation, route }) => {
         }).catch(console.error)
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         const id = route.params.id
         apiDeputados.get(`/deputados/${id}`).then(resultado => {
-         setDeputados(resultado.data.dados)
+            setDeputados(resultado.data.dados)
         })
-        },[])
-        
+    }, [])
+
 
     return (
         <>
-        <ScrollView>
-            <View> 
-            <Card mode="outlined"
-                style={{ margin: 10 }}
-            >
-               
-                <Card.Content>
-                    <Text variant="titleLarge" style={{
-                        marginBottom: 5,
-                        fontSize: 13
-                    }}>
-                    </Text>
-                    <Text variant="bodyMedium" style={{ fontSize: 20 }}>{deputados.nomeCivil}</Text> 
-                </Card.Content>
-                </Card>
+            <ScrollView>
+                <View>
+                    {deputados.map(item => (
+                        <Card mode="outlined" style={{
+                            margin: 8,
+                            borderRadius: 10,
+                        }}>
+                            <Card.Content>
+                                <Text variant="titleLarge">{item.nomeCivil}</Text>
+                            </Card.Content>
+                        </Card>
+                    ))}
                 </View>
-            </ScrollView>           
+            </ScrollView>
         </>
     )
 }

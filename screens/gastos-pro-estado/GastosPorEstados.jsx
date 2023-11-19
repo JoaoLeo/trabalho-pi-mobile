@@ -5,8 +5,8 @@ import { Picker } from '@react-native-picker/picker';
 import apiLocalidades from '../../services/apiLocalidades';
 import { ScrollView, View } from 'react-native';
 
-const GastosPorEstados = ({navigation}) => {
-  
+const GastosPorEstados = ({ navigation }) => {
+
   const [estadoSelecionado, setEstadoSelecionado] = useState('');
   const [alert, setAlert] = useState(false);
   const [top10, setTop10] = useState([])
@@ -32,11 +32,11 @@ const GastosPorEstados = ({navigation}) => {
     { value: '9', label: '9' }, { value: '10', label: '10' }, { value: '11', label: '11' }, { value: '12', label: '12' },
 
   ]
-   useEffect(() =>{
-    apiLocalidades.get('localidades/estados?orderBy=nome').then(res =>{
+  useEffect(() => {
+    apiLocalidades.get('localidades/estados?orderBy=nome').then(res => {
       setUfs(res.data)
     })
-  },[])
+  }, [])
   async function gastosEstados() {
     const dataAtual = new Date();
     const mesAtual = dataAtual.getMonth(); // Retorna um valor entre 0 e 11, onde 0 representa janeiro e 11 representa dezembro
@@ -47,7 +47,7 @@ const GastosPorEstados = ({navigation}) => {
       setAlert(true);
       return;
     }
-    if((ano1 == anoAtual) && (mes1 > mesAtual + 1)){
+    if ((ano1 == anoAtual) && (mes1 > mesAtual + 1)) {
       console.log('erro 2');
       setEstadoSelecionado('')
       setAlert(true)
@@ -84,74 +84,87 @@ const GastosPorEstados = ({navigation}) => {
   }
   return (
     <>
-      <View style={{margin: 10}}>
-      <ScrollView>
-      <Text variant="titleMedium"> Selecione um estado, um mês e um ano para obter o ranking dos deputados que tiveram os maiores gastos no período</Text>
-  <Picker
-  selectedValue={mes1}
-  onValueChange={(itemValue) => setMes1(itemValue)}>
-  
-  <Picker.Item label="Selecione o mês 1" value="" />
+      <View style={{ margin: 10 }}>
+        <ScrollView>
+          <Text variant="titleMedium"> Selecione um estado, um mês e um ano para obter o ranking dos deputados que tiveram os maiores gastos no período</Text>
+          <Picker
+            selectedValue={mes1}
+            onValueChange={(itemValue) => setMes1(itemValue)}>
 
-  {meses.map(m =>(
-    <Picker.Item key={m.label} label={m.label} value={m.value} />
-      ))}
-    </Picker>
-    <Divider/>
-    <Picker
-    selectedValue={ano1}
-    onValueChange={(itemValue) => setAno1(itemValue)}>
-  
-  <Picker.Item label="Selecione o ano 1" value="" />
+            <Picker.Item label="Selecione o mês 1" value="" />
 
-  {options.map(o =>(
-    <Picker.Item key={o.label} label={o.label} value={o.value} />
-      ))}
-    </Picker>
-<Divider/>
-<Picker
-selectedValue={uf}
-  onValueChange={(itemValue) => setUf(itemValue)}>
-  
-  <Picker.Item label="Selecione o estado" value="" />
+            {meses.map(m => (
+              <Picker.Item key={m.label} label={m.label} value={m.value} />
+            ))}
+          </Picker>
+          <Divider />
+          <Picker
+            selectedValue={ano1}
+            onValueChange={(itemValue) => setAno1(itemValue)}>
 
-  {ufs.map(uf =>(
-    <Picker.Item label={uf.sigla} key={uf.id} value={uf.sigla} />
-      ))}
-    </Picker>
-    <Button buttonColor="#198754" mode="contained" onPress={gastosEstados} > Enviar </Button>
+            <Picker.Item label="Selecione o ano 1" value="" />
+
+            {options.map(o => (
+              <Picker.Item key={o.label} label={o.label} value={o.value} />
+            ))}
+          </Picker>
+          <Divider />
+          <Picker
+            selectedValue={uf}
+            onValueChange={(itemValue) => setUf(itemValue)}>
+
+            <Picker.Item label="Selecione o estado" value="" />
+
+            {ufs.map(uf => (
+              <Picker.Item label={uf.sigla} key={uf.id} value={uf.sigla} />
+            ))}
+          </Picker>
+          <Button buttonColor="#198754" mode="contained" onPress={gastosEstados} > Enviar </Button>
 
 
-    {
-          !alert && 
-          top10.map((d,i) => (
+          {
+            !alert &&
+            top10.map((d, i) => (
+              <>
+                  <Card  
+                  mode="outlined" 
+                  style={{
+                    margin: 5,
+                    borderRadius: 10,
+                    borderColor:"#198754"
+                  }} >
+                  <Card.Title
+                    key={d.id}
+                    title={d.nome}
+                    subtitle={`Partido: ${d.siglaPartido}`}
+                    titleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
+                    subtitleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
+                    left={() => <Avatar.Image size={70} source={{ uri: d.urlFoto }} />}
+                    leftStyle={{
+                      marginLeft: -10, color: 'red',
+                      borderColor: "#198754"
+                    }}
+                    right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}
+                  />
+                </Card>
+              </>
+            ))
+          }
+
+          {
+            alert &&
             <>
-              <Card.Title
-              key={d.id}
-              title={d.nome}
-              subtitle={`Partido: ${d.siglaPartido}`}
-              left={(props) => <Avatar.Icon source={{ uri: `${d.urlFoto}`}} />}
-              leftStyle={{ width: '15'}}
-              right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}
-            />
+              <Text variant="titleMedium" style={{ color: 'red' }}> Aviso!</Text>
+              <Divider />
+              <Text variant="titleSmall" style={{ color: 'red' }}>
+                Selecione dados válidos! (O mês e ano não podem exceder a data atual e o estado deve estar selecionado)
+              </Text>
             </>
-          ))
-        }
-
-        {
-          alert &&
-          <>
-            <Text variant="titleMedium" style={{color: 'red'}}> Aviso!</Text>
-            <Divider/>
-            <Text variant="titleSmall" style={{color: 'red'}}>
-              Selecione dados válidos! (O mês e ano não podem exceder a data atual e o estado deve estar selecionado)
-            </Text>
-          </>
-        }
+          }
 
 
         </ScrollView>
-</View>
+      </View>
     </>
   )
 }
