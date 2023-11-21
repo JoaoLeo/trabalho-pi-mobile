@@ -126,28 +126,27 @@ const GastosPorEstados = ({ navigation }) => {
             !alert &&
             top10.map((d, i) => (
               <>
-              <ScrollView key={i}> 
-                  <Card  
-                  mode="outlined" 
-                  style={{
-                    margin: 5,
-                    borderRadius: 10,
-                    borderColor:"#198754"
-                  }} >
-                  <Card.Title
-                    key={d.id}
-                    title={d.nome}
-                    subtitle={`Partido: ${d.siglaPartido}`}
-                    titleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
-                    subtitleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
-                    left={() => <Avatar.Image size={70} source={{ uri: d.urlFoto }} />}
-                    leftStyle={{
-                      marginLeft: -10, color: 'red',
+                <ScrollView key={i}>
+                  <Card
+                    mode="outlined"
+                    style={{
+                      margin: 5,
+                      borderRadius: 10,
                       borderColor: "#198754"
-                    }}
-                    right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}
-                  />
-                </Card>
+                    }} >
+                    <Card.Title
+                      key={d.id}
+                      title={d.nome}
+                      subtitle={`Partido: ${d.siglaPartido}`}
+                      titleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
+                      subtitleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
+                      left={() => <Avatar.Image size={70} source={{ uri: d.urlFoto }} />}
+                      leftStyle={{
+                        marginLeft: -10, color: 'red',
+                        borderColor: "#198754"
+                      }}
+                      right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}/>
+                  </Card>
                 </ScrollView>
               </>
             ))
