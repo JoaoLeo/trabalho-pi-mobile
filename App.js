@@ -3,10 +3,8 @@ import { PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import DeputadosStack from './screens/deputados/DeputadosStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import GastosStack from './screens/gastos/AnaliseGastosStack';
 import AnaliseGastosStack from './screens/gastos/AnaliseGastosStack';
 import GastosPorEstadosStack from './screens/gastos-pro-estado/GastosPorEstadosStack';
-import EmailStack from './screens/envio-email/EmailStack';
 
 const Tab = createMaterialBottomTabNavigator();
 export default function App() {

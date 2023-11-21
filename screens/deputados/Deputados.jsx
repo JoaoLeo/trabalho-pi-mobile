@@ -33,7 +33,7 @@ const Deputados = ({ navigation }) => {
             left={() => <Avatar.Image size={70} source={{ uri: item.urlFoto }} />}
             leftStyle={{marginLeft: -10,color: 'red',
               borderColor:"#198754"}}
-            right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: item.id })} />}
+            right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: item.id, email: item.email, foto: item.urlFoto })} />}
           />
         </Card>
       ))}
