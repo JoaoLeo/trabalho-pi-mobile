@@ -126,6 +126,7 @@ const GastosPorEstados = ({ navigation }) => {
             !alert &&
             top10.map((d, i) => (
               <>
+              <ScrollView key={i}> 
                   <Card  
                   mode="outlined" 
                   style={{
@@ -147,6 +148,7 @@ const GastosPorEstados = ({ navigation }) => {
                     right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}
                   />
                 </Card>
+                </ScrollView>
               </>
             ))
           }
