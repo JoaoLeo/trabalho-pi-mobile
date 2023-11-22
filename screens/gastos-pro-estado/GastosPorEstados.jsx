@@ -17,7 +17,7 @@ const GastosPorEstados = ({ navigation }) => {
   const [error, setError] = useState(false)
   const [msgErro, setMsgErro] = useState("")
   const [data, setData] = useState(false)
-  const [msgLoader, setMsgLoader] = useState(false)
+  const [carregando, setCarregando] = useState(false)
 
   const options = [
     { value: '2019', label: '2019' },
@@ -38,6 +38,7 @@ const GastosPorEstados = ({ navigation }) => {
     })
   }, [])
   async function gastosEstados() {
+    setCarregando(true);
     const dataAtual = new Date();
     const mesAtual = dataAtual.getMonth(); // Retorna um valor entre 0 e 11, onde 0 representa janeiro e 11 representa dezembro
     const anoAtual = dataAtual.getFullYear(); // Retorna o ano com quatro dígitos
@@ -81,6 +82,7 @@ const GastosPorEstados = ({ navigation }) => {
     } catch (error) {
       console.error('Erro ao obter dados dos deputados:', error);
     }
+    setCarregando(false);
   }
   return (
     <>
@@ -120,6 +122,11 @@ const GastosPorEstados = ({ navigation }) => {
             ))}
           </Picker>
           <Button buttonColor="#198754" mode="contained" onPress={gastosEstados} > Enviar </Button>
+          {  carregando &&
+    <Text variant="titleMedium" style={{color: 'yellow'}}> Carregando os dados por favor aguarde </Text>}
+
+    {
+            !alert && <Text> Deputados do {uf} que mais gastaram em {mes1}/{ano1} </Text> }
           {
             !alert &&
             top10.map((d, i) => (

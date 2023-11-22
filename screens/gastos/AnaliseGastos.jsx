@@ -31,6 +31,7 @@ const AnaliseGastos = () => {
   const [data, setData] = useState(false)
   const [valorTotalMes1Ano1, setValorTotalMes1Ano1] = useState(0)
   const [valorTotalMes2Ano2, setValorTotalMes2Ano2] = useState(0)
+  const [carregando,setCarregando] = useState(false);
 
    useEffect(() =>{
     apiLocalidades.get('localidades/estados?orderBy=nome').then(res =>{
@@ -57,7 +58,7 @@ const AnaliseGastos = () => {
   }
 
   function criarAnaliseDeDados(){
-    console.log(mes1, ano1, mes2, ano2, uf);
+    setCarregando(true);
     const lista = []
     const dataAtual = new Date();
     const mesAtual = dataAtual.getMonth(); // Retorna um valor entre 0 e 11, onde 0 representa janeiro e 11 representa dezembro
@@ -75,6 +76,7 @@ const AnaliseGastos = () => {
         await calculaAno(lista, mes1, ano1,true);
         await calculaAno(lista, mes2, ano2,false);
       });     
+      setCarregando(false);
    }
   return (
     <>
@@ -143,7 +145,8 @@ const AnaliseGastos = () => {
 
    { error &&
     <Text variant="titleMedium" style={{color: 'red'}}> { msgErro}</Text>}
-
+{  carregando &&
+    <Text variant="titleMedium" style={{color: 'yellow'}}> Carregando os dados por favor aguarde </Text>}
     { data && 
 
     
