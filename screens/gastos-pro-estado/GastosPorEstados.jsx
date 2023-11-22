@@ -133,8 +133,8 @@ const GastosPorEstados = ({ navigation }) => {
             top10.map(d=> (
               <>
                 <ScrollView>
-                  <Card
-                    key={d.id}
+                  <View key={d.id}> 
+                  <Card                   
                     mode="outlined"                   
                     style={{
                       margin: 5,
@@ -153,6 +153,7 @@ const GastosPorEstados = ({ navigation }) => {
                       }}
    />
                   </Card>
+                  </View>
                 </ScrollView>
               </>
             ))
