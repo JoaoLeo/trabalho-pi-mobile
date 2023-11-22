@@ -120,8 +120,6 @@ const GastosPorEstados = ({ navigation }) => {
             ))}
           </Picker>
           <Button buttonColor="#198754" mode="contained" onPress={gastosEstados} > Enviar </Button>
-
-
           {
             !alert &&
             top10.map((d, i) => (
@@ -145,7 +143,7 @@ const GastosPorEstados = ({ navigation }) => {
                         marginLeft: -10, color: 'red',
                         borderColor: "#198754"
                       }}
-                      right={(props) => <IconButton {...props} icon="chevron-right-circle-outline" onPress={() => navigation.push('Detalhes-deputados', { id: d.id })} />}/>
+   />
                   </Card>
                 </ScrollView>
               </>
@@ -162,8 +160,6 @@ const GastosPorEstados = ({ navigation }) => {
               </Text>
             </>
           }
-
-
         </ScrollView>
       </View>
     </>
