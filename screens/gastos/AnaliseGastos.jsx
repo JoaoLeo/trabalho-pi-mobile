@@ -64,19 +64,28 @@ const AnaliseGastos = () => {
     const mesAtual = dataAtual.getMonth(); // Retorna um valor entre 0 e 11, onde 0 representa janeiro e 11 representa dezembro
     const anoAtual = dataAtual.getFullYear(); // Retorna o ano com quatro dígitos
 
+    setError(false)
+    if(!ano1 || !ano2 || !mes1  || !mes2 ){
+      setError(true)
+      setMsgErro("Preencha todos os campos")
+      setData(false)
+      setCarregando(false)
+      return;
+    }
     if((ano1 == anoAtual || ano2 == anoAtual) && (mes1 >= mesAtual + 1|| mes2 >= mesAtual + 1)){
       setError(true)
       setMsgErro("Data inválida")
       setData(false)
+      setCarregando(false)
       return;
     }
     apiDeputados.get("/deputados?&itens=5&siglaUf="+ uf).then(async res =>{  
       const lista = res.data.dados        
-      setData(true)
         await calculaAno(lista, mes1, ano1,true);
         await calculaAno(lista, mes2, ano2,false);
       });     
       setCarregando(false);
+      setData(true)
    }
   return (
     <>
@@ -145,15 +154,17 @@ const AnaliseGastos = () => {
 
    { error &&
     <Text variant="titleMedium" style={{color: 'red'}}> { msgErro}</Text>}
+
 {  carregando &&
-    <Text variant="titleMedium" style={{color: 'yellow'}}> Carregando os dados por favor aguarde </Text>}
+    <Text variant="titleMedium"> Carregando os dados por favor aguarde </Text>}
+
     { data && 
 
     
       <DataTable style={{backgroundColor: 'white'}}>
       <DataTable.Header>
-        <DataTable.Title><Text style={{fontWeight: 'bold'}}> Gasto total em {mes1}/{ano1} no estado do {uf.toUpperCase()}</Text></DataTable.Title>
-        <DataTable.Title><Text style={{fontWeight: 'bold'}}>Gasto total em {mes2}/{ano2} no estado do {uf.toUpperCase()}</Text></DataTable.Title>
+        <DataTable.Title><Text style={{fontWeight: 'bold'}}> Gastos em {mes1}/{ano1}-{uf.toUpperCase()}</Text></DataTable.Title>
+        <DataTable.Title><Text style={{fontWeight: 'bold'}}>Gasto em {mes2}/{ano2}-{uf.toUpperCase()}</Text></DataTable.Title>
         <DataTable.Title><Text style={{fontWeight: 'bold'}}>Diferença</Text></DataTable.Title>
       </DataTable.Header>
 

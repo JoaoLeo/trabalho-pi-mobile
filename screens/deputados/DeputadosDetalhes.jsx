@@ -48,7 +48,7 @@ const DeputadosDetalhes = ({ navigation, route }) => {
               <Text
                 variant="titleLarge" style={{
                   marginTop: 5 ,
-                  fontWeight: 'bolder',
+                  fontWeight: 'bold',
                   fontSize: 16,
                   color: '#74c474'
                 }}
@@ -65,7 +65,7 @@ const DeputadosDetalhes = ({ navigation, route }) => {
         </View>
         <Card mode='outlined' style={{ margin: 10 }}>
           <Card.Content>
-            <Text style={{ fontSize: 15 }}> <strong> Enviar email para: </strong> {emailDep} </Text>
+            <Text style={{ fontSize: 15 }}> Enviar email para: {emailDep} </Text>
             <Formik
               initialValues={{ assunto: '', mensagem: `` }}
               onSubmit={values => handleEmail(values)}

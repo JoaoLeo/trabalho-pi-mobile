@@ -46,12 +46,14 @@ const GastosPorEstados = ({ navigation }) => {
       console.log('erro 1');
       setEstadoSelecionado('');
       setAlert(true);
+      setCarregando(false);
       return;
     }
     if ((ano1 == anoAtual) && (mes1 > mesAtual + 1)) {
       console.log('erro 2');
       setEstadoSelecionado('')
       setAlert(true)
+      setCarregando(false)
       return;
     }
     const despesasPorDeputado = {};
@@ -83,6 +85,7 @@ const GastosPorEstados = ({ navigation }) => {
       console.error('Erro ao obter dados dos deputados:', error);
     }
     setCarregando(false);
+    setError(false);
   }
   return (
     <>
@@ -123,24 +126,22 @@ const GastosPorEstados = ({ navigation }) => {
           </Picker>
           <Button buttonColor="#198754" mode="contained" onPress={gastosEstados} > Enviar </Button>
           {  carregando &&
-    <Text variant="titleMedium" style={{color: 'yellow'}}> Carregando os dados por favor aguarde </Text>}
+    <Text variant="titleMedium"> Carregando os dados por favor aguarde </Text> }
 
-    {
-            !alert && <Text> Deputados do {uf} que mais gastaram em {mes1}/{ano1} </Text> }
           {
             !alert &&
-            top10.map((d, i) => (
+            top10.map(d=> (
               <>
-                <ScrollView key={i}>
+                <ScrollView>
                   <Card
-                    mode="outlined"
+                    key={d.id}
+                    mode="outlined"                   
                     style={{
                       margin: 5,
                       borderRadius: 10,
                       borderColor: "#198754"
                     }} >
                     <Card.Title
-                      key={d.id}
                       title={d.nome}
                       subtitle={`Partido: ${d.siglaPartido}`}
                       titleStyle={{ fontWeight: 'bold', paddingLeft: 30 }}
